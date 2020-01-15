@@ -1,0 +1,9 @@
+
+# Object detection model
+MobileNetSSD_deploy.caffemodel
+
+# GloVe model for the word dictionary
+images/flickr8k/Flickr_Data/glove/
+
+# Flickr 8k image folder
+images/flickr8k/Flickr_Data/Images/
