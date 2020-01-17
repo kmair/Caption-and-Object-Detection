@@ -7,4 +7,5 @@ This project combines:
 - Video captioning: Evaluating video frames, the model identifies the best caption based on a model from Flickr8K dataset. The code is inspired from [this post](https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/).
 
 ## Data:
-Work in Progress
+
+- Flickr data for generating image captions: [Flickr 8K data](https://www.kaggle.com/shadabhussain/flickr8k)
