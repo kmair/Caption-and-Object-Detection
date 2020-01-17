@@ -38,7 +38,7 @@ ap.add_argument("-i", "--image", required=True,
 args = vars(ap.parse_args())
 
 ############ CAPTIONING ############
-path = os.path.join( os.getcwd(), os.path.join('images', os.path.join('flickr8k','Flickr_Data')) )
+path = os.path.join( os.getcwd(), os.path.join('Caption_analysis', 'flickr8k') )
 txtpath = os.path.join(path, "Flickr_TextData")
 imgpath = os.path.join(path, "Images")
 
@@ -98,33 +98,36 @@ inception = InceptionV3(weights='imagenet')
 inception_model = Model(inception.input, inception.layers[-2].output)
 
 def preprocess(image):
-     
-    # ip: img, scalefactor=1, spatial size for output,
-    # image = cv2.dnn.blobFromImage(cv2.resize(image, (299, 299)), 1, (299, 299), 127.5)
-    # x = np.array(image)
+    # inputs:
+    # :image: image file to be converted to an array
+	# outputs: 
+	# :image array: of shape (1, 3, 299, 299)
 
-    x = img_to_array(cv2.resize(image, (299, 299)), data_format="channels_last")    # output is (299,299,3)
-    
-    x = np.expand_dims(x, axis=0)
-    # print('Img_arr', x.shape)
+	x = img_to_array(cv2.resize(image, (299, 299)), data_format="channels_last")    # x: (299, 299, 3)
+	
+	x = np.expand_dims(x, axis=0) # Dimensions of x: (1, 3, 299, 299)
 
-    # # Dimensions of blob: (1, 3, 299, 299)
-    # # Model is not channels first. So will convert it to (1, 299, 299, 3)
-    # x = np.swapaxes(image, 1, 2)
-    # # # print(x.shape)
-    # x = np.swapaxes(x, 2, 3)
-    # # preprocess the images using preprocess_input() from inception module
-    x = preprocess_input(x)
-    return x
+    # preprocess the images using preprocess_input() from inception module
+	x = preprocess_input(x)
+	return x
 
 def encode(image):
-    image_arr = preprocess(image) # preprocess the image
+    # inputs:
+	# :image: the image file
+	
+	# outputs: 
+	# :fea_vec: of shape (1, 2048)
+	image_arr = preprocess(image) # preprocess the image
     fea_vec = inception_model.predict(image_arr) # Get the encoding vector for the image
-    # fea_vec = np.reshape(fea_vec, fea_vec.shape[1]) # reshape from (1, 2048) to (2048, )
     return fea_vec
 
 def captionGenerator(photo):
-    in_text = 'startseq'
+    # inputs:
+	# :photo: the frame whose caption will be generated
+	
+	# outputs: 
+	# :final_seq: The string of text generated
+	in_text = 'startseq'
     for i in range(max_length):
         sequence = [wordtoix[w] for w in in_text.split() if w in wordtoix]
         sequence = pad_sequences([sequence], maxlen=max_length)
@@ -135,9 +138,9 @@ def captionGenerator(photo):
         if word == 'endseq':
             break
     final = in_text.split()
-    final = final[1:-1]
-    final = ' '.join(final)
-    return final
+    final_seq = final[1:-1]
+    final_seq = ' '.join(final_seq)
+    return final_seq
 
 # grab the frame dimensions and convert it to a blob
 (h, w) = img.shape[:2]
@@ -195,5 +198,4 @@ cv2.imshow("Output", img)
 # key = cv2.waitKey(1) & 0xFF
 cv2.waitKey(0)
 
-#/#/
 print("Time taken in seconds =", end-start)

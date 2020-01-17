@@ -1,9 +1,7 @@
-
-# Object detection model
-MobileNetSSD_deploy.caffemodel
+# Files exceeding the maximum limit are listed here
 
 # GloVe model for the word dictionary
-images/flickr8k/Flickr_Data/glove/
+Caption_analysis/flickr8k/glove/
 
 # Flickr 8k image folder
-images/flickr8k/Flickr_Data/Images/
+Caption_analysis/flickr8k/Images/
