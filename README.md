@@ -47,6 +47,10 @@ Example: python real_time_object_detection_and_captioning.py --prototxt MobileNe
 
 Note: Allow the laptop's camera permissions to capture.
 
+## Future Work:
+
+Plans to extend the latter to a saved mp4 file.
+
 ## Acknowledgements:
 
 A lot of help from Adrian Rosenbrock and Jason Brownlee's articles described above.
