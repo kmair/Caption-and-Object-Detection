@@ -15,7 +15,7 @@ This project combines:
 
 After cloning the repository, you can run 2 implementations of object detection and caption generation:
 
-1. Image detection 
+### 1. Image detection 
 
 **Required commands**
 
@@ -31,7 +31,7 @@ iv. -c or --confidence: Minimum probability to accept detection of images (defau
 
 Example: python image_detection.py --prototxt MobileNetSSD_deploy.prototxt.txt --model MobileNetSSD_deploy.caffemodel --image <image file location>
 
-2. Video detection 
+### 2. Video detection 
 
 **Required commands**
 
