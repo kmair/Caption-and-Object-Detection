@@ -47,6 +47,12 @@ Example: python real_time_object_detection_and_captioning.py --prototxt MobileNe
 
 Note: Allow the laptop's camera permissions to capture.
 
+## Workflow:
+
+The pretrained Caffe model weights were used for object detection. 
+
+For the captioning system, a model had to be built from scratch. The `Caption_analysis` folder contains the relevant notebook and models used for modeling this and employed in the script files.
+
 ## Future Work:
 
 Plans to extend the latter to a saved mp4 file.
