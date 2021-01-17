@@ -13,7 +13,6 @@ import cv2
 import os
 from PIL import Image
 from pickle import dump, load
-# from time import time
 from keras.preprocessing import sequence
 from keras.models import Sequential
 from keras.layers import LSTM, Embedding, TimeDistributed, Dense, RepeatVector,\
@@ -118,8 +117,8 @@ def encode(image):
 	# outputs: 
 	# :fea_vec: of shape (1, 2048)
 	image_arr = preprocess(image) # preprocess the image
-    fea_vec = inception_model.predict(image_arr) # Get the encoding vector for the image
-    return fea_vec
+	fea_vec = inception_model.predict(image_arr) # Get the encoding vector for the image
+	return fea_vec
 
 def captionGenerator(photo):
     # inputs:
@@ -128,19 +127,20 @@ def captionGenerator(photo):
 	# outputs: 
 	# :final_seq: The string of text generated
 	in_text = 'startseq'
-    for i in range(max_length):
-        sequence = [wordtoix[w] for w in in_text.split() if w in wordtoix]
-        sequence = pad_sequences([sequence], maxlen=max_length)
-        yhat = model.predict([photo,sequence], verbose=0)
-        yhat = np.argmax(yhat)
-        word = ixtoword[yhat]
-        in_text += ' ' + word
-        if word == 'endseq':
-            break
-    final = in_text.split()
-    final_seq = final[1:-1]
-    final_seq = ' '.join(final_seq)
-    return final_seq
+	for i in range(max_length):
+		sequence = [wordtoix[w] for w in in_text.split() if w in wordtoix]
+		sequence = pad_sequences([sequence], maxlen=max_length)
+		yhat = model.predict([photo,sequence], verbose=0)
+		yhat = np.argmax(yhat)
+		word = ixtoword[yhat]
+		in_text += ' ' + word
+		if word == 'endseq':
+			break   
+	
+	final = in_text.split()
+	final_seq = final[1:-1]
+	final_seq = ' '.join(final_seq)
+	return final_seq
 
 # initialize the video stream, allow the cammera sensor to warmup,
 # and initialize the FPS counter
@@ -215,7 +215,7 @@ while True:
 				confidence * 100)
 			cv2.rectangle(frame, (startX, startY), (endX, endY),
 				COLORS[idx], 2)
-			y = startY - 15 if s	tartY - 15 > 15 else startY + 15
+			y = startY - 15 if startY - 15 > 15 else startY + 15
 			cv2.putText(frame, label, (startX, y),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[idx], 2)
 
